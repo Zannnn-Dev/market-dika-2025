@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GAME TEBAK ANGKA - DIKA OFFCIAL</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-br from-indigo-800 via-purple-800 to-blue-900 min-h-screen flex items-center justify-center p-4">
+
+  <div class="bg-white bg-opacity-10 backdrop-blur-lg p-8 rounded-3xl shadow-2xl w-full max-w-md text-white">
+    <h1 class="text-3xl font-bold text-center mb-2 text-cyan-300">Game Tebak Angka</h1>
+    <p class="text-center text-sm mb-6 text-gray-200">Tebak angka dari 1 sampai 100. Raih skor terbaik!</p>
+
+    <div class="flex items-center gap-3 mb-4 justify-center">
+      <input id="guessInput" type="number" placeholder="1–100"
+        class="w-300 px-3 py-2 rounded-lg text-black border-4 border-cyan-500 text-base focus:outline-none focus:ring-2 focus:ring-cyan-400"/>
+      <button onclick="checkGuess()" class="bg-green-500 hover:bg-green-600 px-5 py-2 rounded-xl shadow font-semibold">Tebak</button>
+    </div>
+
+    <div class="flex justify-center mb-3">
+      <button onclick="resetGame()" class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-5 py-2 rounded-xl shadow">Main Lagi</button>
+    </div>
+
+    <div id="feedback" class="text-center text-xl mt-4 font-semibold min-h-[2rem]"></div>
+    <div class="text-center mt-2 text-lg">Skor: <span id="score" class="font-bold text-cyan-300">0</span></div>
+
+    <div class="text-center mt-6">
+      <a href="gameseru.html" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-xl shadow font-semibold">Kembali</a>
+    </div>
+
+    <footer class="mt-6 text-center text-sm text-gray-300">
+      Dibuat oleh <strong>DIKA OFFCIAL</strong> - Tujuan: Melatih logika dan intuisi angka melalui game sederhana yang menyenangkan.
+    </footer>
+  </div>
+
+  <script>
+    let randomNumber = 0;
+    let score = 0;
+
+    function generateRandom() {
+      randomNumber = Math.floor(Math.random() * 100) + 1;
+    }
+
+    function checkGuess() {
+      const input = document.getElementById('guessInput');
+      const feedback = document.getElementById('feedback');
+      const value = parseInt(input.value);
+
+      if (isNaN(value) || value < 1 || value > 100) {
+        feedback.textContent = "Masukkan angka antara 1 dan 100!";
+        feedback.className = "text-red-400 text-center text-xl mt-4 font-semibold";
+        return;
+      }
+
+      if (value === randomNumber) {
+        score++;
+        feedback.textContent = "Tebakanmu Benar! 🎉";
+        feedback.className = "text-green-400 text-center text-xl mt-4 font-semibold";
+        document.getElementById('score').textContent = score;
+        generateRandom();
+      } else if (value < randomNumber) {
+        feedback.textContent = "Terlalu kecil!";
+        feedback.className = "text-yellow-300 text-center text-xl mt-4 font-semibold";
+      } else {
+        feedback.textContent = "Terlalu besar!";
+        feedback.className = "text-yellow-300 text-center text-xl mt-4 font-semibold";
+      }
+    }
+
+    function resetGame() {
+      score = 0;
+      document.getElementById('score').textContent = score;
+      document.getElementById('feedback').textContent = '';
+      document.getElementById('guessInput').value = '';
+      generateRandom();
+    }
+
+    generateRandom();
+  </script>
+
+</body>
+</html>
